@@ -17,7 +17,7 @@ app.use(express.urlencoded({ extended: true }));
 enableCors(app, ACCEPTED_ORIGINS);
 
 //definir rutas
-app.use('7api/v1',router)
+app.use('/api/v1',router)
 
 app.all("*", (req, res, next) =>{
     return next(new AppError(`${req.originalUrl} not found `, 404))

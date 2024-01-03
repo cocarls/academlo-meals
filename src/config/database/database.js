@@ -17,7 +17,7 @@ export const authenticated = async() =>{
 
 export const synced = async() =>{
     try {
-        await sequelize.sync()
+        await sequelize.sync()//{force: true}
         console.log('the data base has been synced');
     } catch (error) {
         console.error(error)

@@ -1,5 +1,6 @@
 import { DataTypes } from 'sequelize';
 import { sequelize } from '../../config/database/database.js';
+import { encryptedPassword } from '../../config/plugins/encripted-password.plugin.js';
 
 
 
@@ -24,12 +25,20 @@ const User = sequelize.define('users', {
     },
     role: {
         type: DataTypes.ENUM('normal', 'admin'),
-        allowNull: false
+        allowNull: false,
+        defaultValue: 'normal'
     },
     status: {
         type: DataTypes.BOOLEAN,
         allowNull: false,
         defaultValue: true 
+    }
+}, {
+    hooks: {
+        beforeCreate: async(user)=>{
+            user.password = await encryptedPassword(user.password)
+
+        }
     }
 });
 
